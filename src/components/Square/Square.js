@@ -11,13 +11,10 @@ class Square extends React.Component {
 
 
   render() {
-
-    // console.log(this.props)
     const isMarkedApexA = this.state.apexA.marked;
     const isMarkedApexB = this.state.apexB.marked;
     const isMarkedApexC = this.state.apexC.marked;
     const isMarkedApexD = this.state.apexD.marked;
-    console.log(isMarkedApexA)
     return (
       <div className="square">
         <div className="button-row button-row-start">
