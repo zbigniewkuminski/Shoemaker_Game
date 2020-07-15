@@ -1,5 +1,25 @@
 .square {
-height:50px;
-width: 50px;
-border: 1px solid grey;
+    height: 80px;
+    width: 80px;
+    border: 1px solid grey;
+}
+
+.button-row {
+    height: 50%;
+    display: flex;
+    justify-content: space-between;
+    &-start {        
+        align-items: flex-start;
+    }
+    &-end{
+        align-items: flex-end;
+    }
+}
+
+.apex {
+    border-radius: 50%;
+    background: #000000;
+    width: 10px;
+    height: 10px;
+    margin: -6px;
 }

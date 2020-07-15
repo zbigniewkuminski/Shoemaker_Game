@@ -14,23 +14,26 @@ class Board extends React.Component {
 
   render100Squarez() {
     var elements = [];
-    for (let i = 0; i < 11; i++) {
+    for (let i = 0; i < 10; i++) {
       elements.push([]);
-      for (let j = 0; j < 11; j++) {
+      for (let j = 0; j < 10; j++) {
         elements[i].push({ x: i, y: j });
       }
     }
-    console.log(elements)
 
     return (
       <div className="board">
         {
-          elements.map(element => {
+          elements.map((element, indexX) => {
             return (
-              <div className = "square-row">
+              <div className="square-row" key={indexX}>
                 {
-                  element.map(apex => {
-                    return <Square />
+                  element.map((square, indexY) => {
+                    return <Square key={indexY}
+                      apexA={{ x: indexY, y: indexX }}
+                      apexB={{ x: indexY + 1, y: indexX }}
+                      apexC={{ x: indexY, y: indexX + 1 }}
+                      apexD={{ x: indexY + 1, y: indexX + 1 }} />
                   })
                 }
               </div>
