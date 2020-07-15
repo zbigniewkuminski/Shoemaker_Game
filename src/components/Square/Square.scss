@@ -22,4 +22,14 @@
     width: 10px;
     height: 10px;
     margin: -6px;
+    cursor: pointer;
+    &:hover{
+        width: 20px;
+        height: 20px; 
+        margin: -11px;
+    }
+}
+
+.marked {
+    background: blue;
 }

@@ -30,10 +30,10 @@ class Board extends React.Component {
                 {
                   element.map((square, indexY) => {
                     return <Square key={indexY}
-                      apexA={{ x: indexY, y: indexX }}
-                      apexB={{ x: indexY + 1, y: indexX }}
-                      apexC={{ x: indexY, y: indexX + 1 }}
-                      apexD={{ x: indexY + 1, y: indexX + 1 }} />
+                      apexA={{ x: indexY, y: indexX, marked: false }}
+                      apexB={{ x: indexY + 1, y: indexX, marked: false }}
+                      apexC={{ x: indexY, y: indexX + 1, marked: false }}
+                      apexD={{ x: indexY + 1, y: indexX + 1, marked: false }} />
                   })
                 }
               </div>
