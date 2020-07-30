@@ -61,10 +61,10 @@ class Square extends React.Component {
     if (this.props.lastClickedApex === null) {
       return true;
     }
-    if (this.props.lastClickedApex.x === newApexValue.x + 1 || this.props.lastClickedApex.x === newApexValue.x - 1 && this.props.lastClickedApex.y === newApexValue.y) {
+    if ((this.props.lastClickedApex.x === newApexValue.x + 1 || this.props.lastClickedApex.x === newApexValue.x - 1) && this.props.lastClickedApex.y === newApexValue.y) {
       return true;
     }
-    if (this.props.lastClickedApex.y === newApexValue.y + 1 || this.props.lastClickedApex.y === newApexValue.y - 1 && this.props.lastClickedApex.x === newApexValue.x) {
+    if ((this.props.lastClickedApex.y === newApexValue.y + 1 || this.props.lastClickedApex.y === newApexValue.y - 1) && this.props.lastClickedApex.x === newApexValue.x) {
       return true;
     }
     return false;
