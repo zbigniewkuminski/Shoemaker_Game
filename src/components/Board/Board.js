@@ -5,7 +5,7 @@ import Square from '../Square/Square';
 const players = {
   BLUE: 'Blue',
   RED: 'Red'
-}  
+}
 
 class Board extends React.Component {
   pickStartingPlayer = () => {
@@ -16,8 +16,16 @@ class Board extends React.Component {
     }
   }
 
+  changeNextPlayerAndSetLastApex=(clickedApex)=> {
+  this.setState({currentPlayer: this.state.currentPlayer === players.BLUE ? players.RED : players.BLUE});
+  this.setState({lastSelectedApex: clickedApex });
+  console.log(clickedApex)
+    }
+
+
   state = {
-    currentPlayer: this.pickStartingPlayer()
+    currentPlayer: this.pickStartingPlayer(),
+    lastSelectedApex: null
   };
 
   render() {
@@ -34,7 +42,6 @@ class Board extends React.Component {
         elements[i].push({ x: i, y: j });
       }
     }
-
     return (
       <div className="board">
         <h2>Next player: {this.state.currentPlayer}</h2>
@@ -45,10 +52,13 @@ class Board extends React.Component {
                 {
                   element.map((square, indexY) => {
                     return <Square key={indexY}
-                      apexA={{ x: indexY, y: indexX, marked: false }}
-                      apexB={{ x: indexY + 1, y: indexX, marked: false }}
-                      apexC={{ x: indexY, y: indexX + 1, marked: false }}
-                      apexD={{ x: indexY + 1, y: indexX + 1, marked: false }} />
+                      apexA={{ x: indexY, y: indexX, marked: null }}
+                      apexB={{ x: indexY + 1, y: indexX, marked: null }}
+                      apexC={{ x: indexY, y: indexX + 1, marked: null }}
+                      apexD={{ x: indexY + 1, y: indexX + 1, marked: null }}
+                      onClick = {this.changeNextPlayerAndSetLastApex}
+                      currentPlayer = {this.state.currentPlayer}
+                      lastClickedApex = {this.state.lastSelectedApex}/>
                   })
                 }
               </div>
