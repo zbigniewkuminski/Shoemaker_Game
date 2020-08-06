@@ -4,67 +4,67 @@ import './Square.scss';
 class Square extends React.Component {
   state = {
     apexA: this.props.apexA,
-    apexB: this.props.apexB,
-    apexC: this.props.apexC,
-    apexD: this.props.apexD,
     edgeAB: null,
     edgeBD: null,
     edgeDC: null,
     edgeCA: null
   };
 
-
   render() {
-    const isMarkedApexA = this.state.apexA.marked;
-    const isMarkedApexB = this.state.apexB.marked;
-    const isMarkedApexC = this.state.apexC.marked;
-    const isMarkedApexD = this.state.apexD.marked;
-
     const borderStyle = '2px solid ';
     return (
       <div className="square" style={{ borderTop: borderStyle + this.state.edgeAB, borderRight: borderStyle + this.state.edgeBD, borderBottom: borderStyle + this.state.edgeDC, borderLeft: borderStyle + this.state.edgeCA }}>
         <div className="button-row button-row-start">
           <div className={`apex ${this.state.apexA.marked}`} onClick={() => { this.apexMark(this.props.apexA, 'apexA') }}></div>
-          <div className={`apex ${this.state.apexB.marked}`} onClick={() => { this.apexMark(this.props.apexB, 'apexB') }}></div>
         </div>
         <div className="button-row button-row-end">
-          <div className={`apex ${this.state.apexC.marked}`} onClick={() => { this.apexMark(this.props.apexC, 'apexC') }}></div>
-          <div className={`apex ${this.state.apexD.marked}`} onClick={() => { this.apexMark(this.props.apexD, 'apexD') }}></div>
         </div>
       </div>
     )
   }
 
+  prevState = () => {
+    let tempState = this.state;
+    tempState.apexA.marked = this.props.currentPlayer;
+    return tempState;
+  }
+
   apexMark = (apexValue, apexName) => {
-    if (!this.state[apexName].marked && this.isApexClickable(apexValue)) {
-      switch (apexName) {
-        case 'apexA':
-          this.setState({ apexA: { x: apexValue.x, y: apexValue.y, marked: this.props.currentPlayer } });
-          break;
-        case 'apexB':
-          this.setState({ apexB: { x: apexValue.x, y: apexValue.y, marked: this.props.currentPlayer } });
-          break;
-        case 'apexC':
-          this.setState({ apexC: { x: apexValue.x, y: apexValue.y, marked: this.props.currentPlayer } });
-          break;
-        case 'apexD':
-          this.setState({ apexD: { x: apexValue.x, y: apexValue.y, marked: this.props.currentPlayer } });
-          break;
-        default:
-          break;
-      }
-      this.props.onClick(apexValue);
+    console.log(this.props.lastClickedApex)
+    if (!this.state.apexA.marked && this.isApexClickable(apexValue)) {
+      // console.log('YOU SHALL PASS')
+      // switch (apexName) {
+      //   case 'apexA':
+      //     this.setState({ apexA: { x: apexValue.x, y: apexValue.y, marked: this.props.currentPlayer } });
+      //     break;
+      //   default:
+      //     break;
+      // }
+      this.setState(this.prevState(), () => {
+        this.props.onClick(this.state.apexA);
+      });
     }
   }
 
   isApexClickable(newApexValue) {
     if (this.props.lastClickedApex === null) {
+      console.log('pierwsze kliknięcie')
       return true;
     }
     if ((this.props.lastClickedApex.x === newApexValue.x + 1 || this.props.lastClickedApex.x === newApexValue.x - 1) && this.props.lastClickedApex.y === newApexValue.y) {
+      if (this.props.lastClickedApex.x) {
+        this.setState({ edgeCA: this.props.currentPlayer });
+      } else {
+        this.setState({ edgeAB: this.props.currentPlayer });
+      }
       return true;
     }
     if ((this.props.lastClickedApex.y === newApexValue.y + 1 || this.props.lastClickedApex.y === newApexValue.y - 1) && this.props.lastClickedApex.x === newApexValue.x) {
+      if (newApexValue.x === this.props.lastClickedApex.x) {
+        this.setState({ edgeCA: this.props.currentPlayer });
+      } else {
+        this.setState({ edgeAB: this.props.currentPlayer });
+      }
       return true;
     }
     return false;

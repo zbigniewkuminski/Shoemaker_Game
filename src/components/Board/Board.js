@@ -9,24 +9,22 @@ const players = {
 
 class Board extends React.Component {
   pickStartingPlayer = () => {
-    if(Math.round(Math.random(0,1)) === 0){
+    if (Math.round(Math.random(0, 1)) === 0) {
       return players.BLUE;
     } else {
       return players.RED;
     }
   }
 
-  changeNextPlayerAndSetLastApex=(clickedApex)=> {
-  this.setState({currentPlayer: this.state.currentPlayer === players.BLUE ? players.RED : players.BLUE});
-  this.setState({lastSelectedApex: clickedApex });
-  console.log(clickedApex)
-    }
-
-
   state = {
     currentPlayer: this.pickStartingPlayer(),
     lastSelectedApex: null
   };
+  
+  changeNextPlayerAndSetLastApex = (clickedApex) => {
+    this.setState({ lastSelectedApex: clickedApex});
+    this.setState({ currentPlayer: this.state.currentPlayer === players.BLUE ? players.RED : players.BLUE });
+  }
 
   render() {
     return (
@@ -36,9 +34,9 @@ class Board extends React.Component {
 
   render100Squarez() {
     var elements = [];
-    for (let i = 0; i < 10; i++) {
+    for (let i = 0; i < 11; i++) {
       elements.push([]);
-      for (let j = 0; j < 10; j++) {
+      for (let j = 0; j < 11; j++) {
         elements[i].push({ x: i, y: j });
       }
     }
@@ -53,12 +51,9 @@ class Board extends React.Component {
                   element.map((square, indexY) => {
                     return <Square key={indexY}
                       apexA={{ x: indexY, y: indexX, marked: null }}
-                      apexB={{ x: indexY + 1, y: indexX, marked: null }}
-                      apexC={{ x: indexY, y: indexX + 1, marked: null }}
-                      apexD={{ x: indexY + 1, y: indexX + 1, marked: null }}
-                      onClick = {this.changeNextPlayerAndSetLastApex}
-                      currentPlayer = {this.state.currentPlayer}
-                      lastClickedApex = {this.state.lastSelectedApex}/>
+                      onClick={this.changeNextPlayerAndSetLastApex}
+                      currentPlayer={this.state.currentPlayer}
+                      lastClickedApex={this.state.lastSelectedApex} />
                   })
                 }
               </div>
