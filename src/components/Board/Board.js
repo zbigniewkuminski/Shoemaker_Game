@@ -18,18 +18,16 @@ class Board extends React.Component {
 
   state = {
     currentPlayer: this.pickStartingPlayer(),
-    lastSelectedApex: null
+    lastSelectedApex: null,
+    currentClickedApex: null
   };
-  
-  changeNextPlayerAndSetLastApex = (clickedApex) => {
-    this.setState({ lastSelectedApex: clickedApex});
-    this.setState({ currentPlayer: this.state.currentPlayer === players.BLUE ? players.RED : players.BLUE });
-  }
 
-  render() {
-    return (
-      this.render100Squarez()
-    )
+  changeNextPlayerAndSetLastApex = (clickedApex) => {
+    let tempState = this.state;
+    tempState.lastSelectedApex = tempState.currentClickedApex;
+    tempState.currentClickedApex = clickedApex;
+    tempState.currentPlayer = this.state.currentPlayer === players.BLUE ? players.RED : players.BLUE;
+    this.setState(tempState);
   }
 
   render100Squarez() {
@@ -53,6 +51,7 @@ class Board extends React.Component {
                       apexA={{ x: indexY, y: indexX, marked: null }}
                       onClick={this.changeNextPlayerAndSetLastApex}
                       currentPlayer={this.state.currentPlayer}
+                      currentClickedApex={this.state.currentClickedApex}
                       lastClickedApex={this.state.lastSelectedApex} />
                   })
                 }
@@ -61,6 +60,12 @@ class Board extends React.Component {
           })
         }
       </div>
+    )
+  }
+
+  render() {
+    return (
+      this.render100Squarez()
     )
   }
 }
